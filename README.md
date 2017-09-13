@@ -8,9 +8,9 @@
 7. Some static analysis of the code was executed in the IDE, but not via maven plugin to avoid additional external dependencies (as per the spec)
 8. The output report is ordered by adjusted settlement date, and it was assumed days with no settlements would not be included in the report
 9. Ranking of entities is based on the sum total amount of the instructions across all days loaded in the batch, separately for incoming and outgoing, where "amount" = Price per unit * Units * Agreed FX
-12. When returning the ranking, if the total amount is the same between 2 entities, the order between then is not enforced
-10. The output format would need to be reviewed to ensure it is as expected, as the spec is ambiguous
-11. Currency is modelled as a String rather than Enum, with a restriction to 3 chars, as there was no master list of currencies supplied and it avoids having to continually make code changes to add currency types (or update database / static config)
+10. When returning the ranking, if the total amount is the same between 2 entities, the order between then is not enforced
+11. The output format would need to be reviewed to ensure it is as expected, as the spec is ambiguous
+12. Currency is modelled as a String rather than Enum, with a restriction to 3 chars, as there was no master list of currencies supplied and it avoids having to continually make code changes to add currency types (or update database / static config)
 
 
 #### Code Structure
