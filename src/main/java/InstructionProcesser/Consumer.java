@@ -11,7 +11,9 @@ import java.util.List;
 import static InstructionProcesser.utils.DateUtils.parseDate;
 
 
-public class Consumer {
+public final class Consumer {
+
+    private static final int expectedNumFields = 8;
 
     public static List<Instruction> importFile(String instructionsFile) throws BadlyFormedLineException, IOException {
         InputStream instFileStream = ClassLoader.getSystemResourceAsStream(instructionsFile);
@@ -31,11 +33,11 @@ public class Consumer {
     private static Instruction csvToExecutionInstruction(String csvLine) throws BadlyFormedLineException {
         Instruction instruction;
 
-        if (csvLine == null || csvLine.trim().length() == 0) {
-            throw new BadlyFormedLineException();
-        }
+        if (csvLine == null || csvLine.trim().length() == 0) throw new BadlyFormedLineException();
+
         String[] splitData = csvLine.split("\\s*,\\s*");
-        //TODO Check if we have the correct number of fields in the line?
+        if (splitData.length != expectedNumFields) throw new BadlyFormedLineException();
+
         try {
             instruction = new Instruction(
                     splitData[0],
