@@ -68,6 +68,40 @@ public class Instruction {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Instruction that = (Instruction) o;
+
+        if (Double.compare(that.agreedFX, agreedFX) != 0) return false;
+        if (units != that.units) return false;
+        if (Double.compare(that.unitPrice, unitPrice) != 0) return false;
+        if (!entity.equals(that.entity)) return false;
+        if (buySell != that.buySell) return false;
+        if (!currency.equals(that.currency)) return false;
+        if (!instructionDate.equals(that.instructionDate)) return false;
+        return settlementDate.equals(that.settlementDate);
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = entity.hashCode();
+        result = 31 * result + buySell.hashCode();
+        temp = Double.doubleToLongBits(agreedFX);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + currency.hashCode();
+        result = 31 * result + instructionDate.hashCode();
+        result = 31 * result + settlementDate.hashCode();
+        result = 31 * result + units;
+        temp = Double.doubleToLongBits(unitPrice);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "InstructionProcesser.Instruction{" +
                 "entity='" + entity + '\'' +
