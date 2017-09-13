@@ -1,9 +1,12 @@
-import InstructionExceptions.MalformedCurrencyException;
+package InstructionProcesser;
+
+import InstructionProcesser.InstructionExceptions.MalformedCurrencyException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;
 
 public class Currency {
+
     private String currencyCode;
 
     public Currency(String currencyCode) throws MalformedCurrencyException {
@@ -27,6 +30,21 @@ public class Currency {
                 settlement = settlement.with(TemporalAdjusters.next(DayOfWeek.MONDAY));
         }
         return settlement;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Currency currency = (Currency) o;
+
+        return currencyCode.equals(currency.currencyCode);
+    }
+
+    @Override
+    public int hashCode() {
+        return currencyCode.hashCode();
     }
 
     @Override

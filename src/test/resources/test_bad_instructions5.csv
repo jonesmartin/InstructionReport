@@ -1,4 +1,4 @@
-Entity,BuySell,AgreedFx,Currency,InstructionDate,SettlementDate,Units,UnitPrice
+Entity,BuySell,AgreedFx,InstructionProcesser.Currency,InstructionDate,SettlementDate,Units,UnitPrice
 foo,B,0.5,SGP,01 Jan 2016,02 Jan 2016,200,100.25
 bar,S,0.22,AED,05 Jan 2016,20170101,450,150.5
 bob,B,0.5,SGP,01 Jan 2016,02 Jan 2014,200,100.25

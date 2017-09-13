@@ -1,40 +1,45 @@
-import utils.*;
-import InstructionExceptions.BadlyFormedLineException;
-import InstructionExceptions.MalformedCurrencyException;
+package InstructionProcesser;
+
+import InstructionProcesser.utils.*;
+import InstructionProcesser.InstructionExceptions.BadlyFormedLineException;
+import InstructionProcesser.InstructionExceptions.MalformedCurrencyException;
 import java.io.*;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
-import static utils.DateUtils.parseDate;
+import static InstructionProcesser.utils.DateUtils.parseDate;
 
 
-public class IngestInstructions {
+public final class Consumer {
 
-    public static ArrayList<ExecutionInstruction> importFile(String instructionsFile) throws BadlyFormedLineException, IOException {
+    private static final int expectedNumFields = 8;
+
+    public static List<Instruction> importFile(String instructionsFile) throws BadlyFormedLineException, IOException {
         InputStream instFileStream = ClassLoader.getSystemResourceAsStream(instructionsFile);
         if (instFileStream == null) throw new IOException("Cannot find file: " + instructionsFile);
 
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(instFileStream));
 
         String line;
-        ArrayList<ExecutionInstruction> instructions = new ArrayList<>();
-
+        List<Instruction> instructions = new LinkedList<>();
         bufferedReader.readLine();
         while ((line = bufferedReader.readLine()) != null) {
-            instructions.add(csvtoExecutionInstruction(line));
+            instructions.add(csvToExecutionInstruction(line));
         }
         return instructions;
     }
 
-    private static ExecutionInstruction csvtoExecutionInstruction(String csvLine) throws BadlyFormedLineException {
-        ExecutionInstruction instruction;
+    private static Instruction csvToExecutionInstruction(String csvLine) throws BadlyFormedLineException {
+        Instruction instruction;
 
-        if (csvLine == null || csvLine.trim().length() == 0) {
-            throw new BadlyFormedLineException();
-        }
+        if (csvLine == null || csvLine.trim().length() == 0) throw new BadlyFormedLineException();
+
         String[] splitData = csvLine.split("\\s*,\\s*");
+        if (splitData.length != expectedNumFields) throw new BadlyFormedLineException();
+
         try {
-            instruction = new ExecutionInstruction(
+            instruction = new Instruction(
                     splitData[0],
                     BuySellEnum.valueOf(splitData[1]),
                     Double.valueOf(splitData[2]),
