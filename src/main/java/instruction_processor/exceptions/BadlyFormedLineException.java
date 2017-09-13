@@ -1,4 +1,4 @@
-package InstructionProcesser.InstructionExceptions;
+package instruction_processor.exceptions;
 
 public class BadlyFormedLineException extends Exception {
 

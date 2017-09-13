@@ -1,7 +1,7 @@
-package InstructionProcesser;
+package instruction_processor;
 
 import java.time.LocalDate;
-import InstructionProcesser.utils.*;
+import instruction_processor.utils.*;
 
 public class Instruction {
 
@@ -103,7 +103,7 @@ public class Instruction {
 
     @Override
     public String toString() {
-        return "InstructionProcesser.Instruction{" +
+        return "instruction_processor.Instruction{" +
                 "entity='" + entity + '\'' +
                 ", buySell=" + buySell +
                 ", agreedFX=" + agreedFX +

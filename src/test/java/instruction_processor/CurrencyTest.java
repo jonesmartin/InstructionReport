@@ -1,11 +1,10 @@
-package InstructionProessor;
+package instruction_processor;
 
-import InstructionProcesser.Currency;
-import InstructionProcesser.InstructionExceptions.MalformedCurrencyException;
+import instruction_processor.exceptions.MalformedCurrencyException;
 import org.junit.Test;
 import java.time.DayOfWeek;
 import static org.junit.Assert.*;
-import static InstructionProcesser.utils.DateUtils.parseDate;
+import static instruction_processor.utils.DateUtils.parseDate;
 
 public class CurrencyTest {
 

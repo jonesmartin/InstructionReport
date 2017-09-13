@@ -1,4 +1,4 @@
-package InstructionProcesser.utils;
+package instruction_processor.utils;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

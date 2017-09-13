@@ -1,9 +1,7 @@
-package InstructionProessor;
+package instruction_processor;
 
-import InstructionProcesser.Currency;
-import InstructionProcesser.Instruction;
-import InstructionProcesser.utils.BuySellEnum;
-import InstructionProcesser.InstructionExceptions.MalformedCurrencyException;
+import instruction_processor.utils.BuySellEnum;
+import instruction_processor.exceptions.MalformedCurrencyException;
 import org.junit.Test;
 
 import java.time.DayOfWeek;

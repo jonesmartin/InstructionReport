@@ -1,6 +1,6 @@
-package InstructionProcesser;
+package instruction_processor;
 
-import InstructionProcesser.InstructionExceptions.MalformedCurrencyException;
+import instruction_processor.exceptions.MalformedCurrencyException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;
@@ -16,20 +16,25 @@ public class Currency {
         this.currencyCode = currencyCode;
     }
 
-    public LocalDate nextWorkDay(LocalDate settlement){
+    /** Returns the LocalDate representing the next work day given the currency market
+     *
+     * @param date from which we roll forward to find the next work day if it isn't already a work day
+     * @return the next work day taking into account the currency market
+     */
+    public LocalDate nextWorkDay(LocalDate date){
         switch (currencyCode) {
             case "AED":
             case "SAR":
-                if (settlement.getDayOfWeek() == DayOfWeek.FRIDAY ||
-                        settlement.getDayOfWeek() == DayOfWeek.SATURDAY)
-                    settlement =  settlement.with(TemporalAdjusters.next(DayOfWeek.SUNDAY));
+                if (date.getDayOfWeek() == DayOfWeek.FRIDAY ||
+                        date.getDayOfWeek() == DayOfWeek.SATURDAY)
+                    date =  date.with(TemporalAdjusters.next(DayOfWeek.SUNDAY));
                 break;
             default:
-                if (settlement.getDayOfWeek() == DayOfWeek.SATURDAY ||
-                        settlement.getDayOfWeek() == DayOfWeek.SUNDAY)
-                settlement = settlement.with(TemporalAdjusters.next(DayOfWeek.MONDAY));
+                if (date.getDayOfWeek() == DayOfWeek.SATURDAY ||
+                        date.getDayOfWeek() == DayOfWeek.SUNDAY)
+                date = date.with(TemporalAdjusters.next(DayOfWeek.MONDAY));
         }
-        return settlement;
+        return date;
     }
 
     @Override
