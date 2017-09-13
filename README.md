@@ -15,4 +15,8 @@
 #### Code Structure
 1. As a small project, there was little need for extensive hierarchy, however, the exceptions and enums are in their own package to illustrate structure
 2. For a data structure holding the Instructions, a LinkedList was used to allow for more efficient expansion,
-but maintaining a sorted collection on consuming may offer efficiencies given the output requirements
+but if refactoring it maybe worth choosing a sorted collection which offer efficiencies given the output requirements
+
+## TODO
+1. commenting, maybe some "comment templates"
+4. Maybe have some ETL pattern? transformer, sender, loader?

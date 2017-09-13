@@ -1,36 +1,47 @@
-package InstructionProcesser;
+package instruction_processor;
 
-import InstructionProcesser.utils.*;
-import InstructionProcesser.InstructionExceptions.BadlyFormedLineException;
-import InstructionProcesser.InstructionExceptions.MalformedCurrencyException;
+import instruction_processor.exceptions.InstructionLoaderException;
+import instruction_processor.utils.*;
+import instruction_processor.exceptions.BadlyFormedLineException;
+import instruction_processor.exceptions.MalformedCurrencyException;
 import java.io.*;
 import java.time.format.DateTimeParseException;
 import java.util.LinkedList;
 import java.util.List;
 
-import static InstructionProcesser.utils.DateUtils.parseDate;
+import static instruction_processor.utils.DateUtils.parseDate;
 
 
-public final class Consumer {
+public class InstructionCSVFileLoader implements InstructionLoader {
 
-    private static final int expectedNumFields = 8;
+    private final int expectedNumFields = 8;
+    private String instructionsFile;
+    private boolean hasHeader;
 
-    public static List<Instruction> importFile(String instructionsFile) throws BadlyFormedLineException, IOException {
+    public InstructionCSVFileLoader(String instructionsFile, boolean hasHeader) {
+        this.instructionsFile = instructionsFile;
+        this.hasHeader = hasHeader;
+    }
+
+    public List<Instruction> loadInstructions()  throws InstructionLoaderException {
         InputStream instFileStream = ClassLoader.getSystemResourceAsStream(instructionsFile);
-        if (instFileStream == null) throw new IOException("Cannot find file: " + instructionsFile);
-
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(instFileStream));
-
-        String line;
         List<Instruction> instructions = new LinkedList<>();
-        bufferedReader.readLine();
-        while ((line = bufferedReader.readLine()) != null) {
-            instructions.add(csvToExecutionInstruction(line));
+        String line;
+
+        try {
+            if (instFileStream == null) throw new IOException("Cannot find file: " + instructionsFile);
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(instFileStream));
+            if (hasHeader) bufferedReader.readLine();  // consume the header row if there is one
+            while ((line = bufferedReader.readLine()) != null) {
+                instructions.add(csvToExecutionInstruction(line));
+            }
+        } catch (IOException | BadlyFormedLineException e) {
+            throw new InstructionLoaderException(e);
         }
         return instructions;
     }
 
-    private static Instruction csvToExecutionInstruction(String csvLine) throws BadlyFormedLineException {
+    private Instruction csvToExecutionInstruction(String csvLine) throws BadlyFormedLineException {
         Instruction instruction;
 
         if (csvLine == null || csvLine.trim().length() == 0) throw new BadlyFormedLineException();

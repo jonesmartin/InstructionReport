@@ -1,11 +1,8 @@
-package InstructionProessor;
+package instruction_processor;
 
-import InstructionProcesser.AggregateInstructions;
-import InstructionProcesser.Currency;
-import InstructionProcesser.Instruction;
-import InstructionProcesser.InstructionExceptions.MalformedCurrencyException;
-import InstructionProcesser.utils.BuySellEnum;
-import InstructionProcesser.utils.DateUtils;
+import instruction_processor.exceptions.MalformedCurrencyException;
+import instruction_processor.utils.BuySellEnum;
+import instruction_processor.utils.DateUtils;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import java.time.LocalDate;
@@ -34,10 +31,10 @@ public class AggregateInstructionsTest {
                 new Currency("GBP"), sd2, sd2, 10, 50.5));
 
         ArrayList<Map.Entry<LocalDate, Double>> outgoing =
-                AggregateInstructions.summariseByAdjustedSettlement(instructions, BuySellEnum.B)
+                new AggregateInstructions().summariseByAdjustedSettlement(instructions, BuySellEnum.B)
                         .stream().collect(Collectors.toCollection(ArrayList<Map.Entry<LocalDate, Double>>::new));
         ArrayList<Map.Entry<LocalDate, Double>> incoming =
-                AggregateInstructions.summariseByAdjustedSettlement(instructions, BuySellEnum.S)
+                new AggregateInstructions().summariseByAdjustedSettlement(instructions, BuySellEnum.S)
                         .stream().collect(Collectors.toCollection(ArrayList<Map.Entry<LocalDate, Double>>::new));
 
         assertEquals(outgoing.get(0).getValue(), new Double(1000));
@@ -71,10 +68,10 @@ public class AggregateInstructionsTest {
                 new Currency("GBP"), sd3, sd3, 10, 3));
 
         ArrayList<Map.Entry<String, Double>> outgoing =
-                AggregateInstructions.rankedSummaryByEntity(instructions, BuySellEnum.B)
+                new AggregateInstructions().rankedSummaryByEntity(instructions, BuySellEnum.B)
                         .stream().collect(Collectors.toCollection(ArrayList<Map.Entry<String, Double>>::new));
         ArrayList<Map.Entry<String, Double>> incoming =
-                AggregateInstructions.rankedSummaryByEntity(instructions, BuySellEnum.S)
+                new AggregateInstructions().rankedSummaryByEntity(instructions, BuySellEnum.S)
                         .stream().collect(Collectors.toCollection(ArrayList<Map.Entry<String, Double>>::new));
 
         assertEquals(outgoing.get(0).getKey(), "Frank");

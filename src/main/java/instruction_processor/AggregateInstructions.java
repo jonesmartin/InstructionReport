@@ -1,6 +1,6 @@
-package InstructionProcesser;
+package instruction_processor;
 
-import InstructionProcesser.utils.BuySellEnum;
+import instruction_processor.utils.BuySellEnum;
 import java.time.LocalDate;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -9,9 +9,9 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public final class AggregateInstructions {
+public class AggregateInstructions {
 
-    public static Set<Entry<LocalDate, Double>> summariseByAdjustedSettlement(List<Instruction> instructions,
+    public Set<Entry<LocalDate, Double>> summariseByAdjustedSettlement(List<Instruction> instructions,
                                                                               BuySellEnum buySell) {
         return instructions.stream()
                 .filter(i -> i.getBuySell().equals(buySell))
@@ -26,7 +26,7 @@ public final class AggregateInstructions {
     }
 
 
-    public static Set<Entry<String, Double>> rankedSummaryByEntity(List<Instruction> instructions,
+    public Set<Entry<String, Double>> rankedSummaryByEntity(List<Instruction> instructions,
                                                                               BuySellEnum buySell) {
         return instructions.stream()
                 .filter(i -> i.getBuySell().equals(buySell))
