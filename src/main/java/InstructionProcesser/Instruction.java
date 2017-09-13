@@ -1,7 +1,9 @@
-import java.time.LocalDate;
-import utils.*;
+package InstructionProcesser;
 
-public class ExecutionInstruction {
+import java.time.LocalDate;
+import InstructionProcesser.utils.*;
+
+public class Instruction {
 
     private String entity;
     private BuySellEnum buySell;
@@ -13,9 +15,9 @@ public class ExecutionInstruction {
     private double unitPrice;
     private LocalDate adjustedSettlementDate;
 
-    public ExecutionInstruction(String entity, BuySellEnum buySell, double agreedFX, Currency currency,
-                                LocalDate instructionDate, LocalDate settlementDate, int units,
-                                double unitPrice) {
+    public Instruction(String entity, BuySellEnum buySell, double agreedFX, Currency currency,
+                       LocalDate instructionDate, LocalDate settlementDate, int units,
+                       double unitPrice) {
         this.entity = entity;
         this.buySell = buySell;
         this.agreedFX = agreedFX;
@@ -67,7 +69,7 @@ public class ExecutionInstruction {
 
     @Override
     public String toString() {
-        return "ExecutionInstruction{" +
+        return "InstructionProcesser.Instruction{" +
                 "entity='" + entity + '\'' +
                 ", buySell=" + buySell +
                 ", agreedFX=" + agreedFX +

@@ -1,4 +1,6 @@
-import InstructionExceptions.MalformedCurrencyException;
+package InstructionProcesser;
+
+import InstructionProcesser.InstructionExceptions.MalformedCurrencyException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;
