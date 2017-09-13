@@ -1,12 +1,12 @@
 import utils.*;
 import InstructionExceptions.BadlyFormedLineException;
 import InstructionExceptions.MalformedCurrencyException;
-
 import java.io.*;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+
+import static utils.DateUtils.parseDate;
+
 
 public class IngestInstructions {
 
@@ -39,8 +39,8 @@ public class IngestInstructions {
                     BuySellEnum.valueOf(splitData[1]),
                     Double.valueOf(splitData[2]),
                     new Currency(splitData[3]),
-                    LocalDate.parse(splitData[4], DateTimeFormatter.ofPattern("dd MMM yyyy")),
-                    LocalDate.parse(splitData[5], DateTimeFormatter.ofPattern("dd MMM yyyy")),
+                    parseDate(splitData[4]),
+                    parseDate(splitData[5]),
                     Integer.valueOf(splitData[6]),
                     Double.valueOf(splitData[7]));
         } catch (DateTimeParseException dtpe) {
