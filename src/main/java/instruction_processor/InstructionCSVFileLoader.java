@@ -23,6 +23,11 @@ public class InstructionCSVFileLoader implements InstructionLoader {
         this.hasHeader = hasHeader;
     }
 
+    /** Returns a list of Instructions loaded from CSV file
+     *
+     * @return Unordered List of Instructions
+     * @throws InstructionLoaderException if there is a problem with the file or data in the file being loaded
+     */
     public List<Instruction> loadInstructions()  throws InstructionLoaderException {
         InputStream instFileStream = ClassLoader.getSystemResourceAsStream(instructionsFile);
         List<Instruction> instructions = new LinkedList<>();
@@ -41,6 +46,13 @@ public class InstructionCSVFileLoader implements InstructionLoader {
         return instructions;
     }
 
+    /** Processes a CSV line and returns an Instruction if parsed successfully
+     *
+     * @param csvLine csv line with exactly expectedNumFields in order
+     *                entity, buySell, agreedFX, currency, instructionDate, settlementDate, units, unitPrice
+     * @return single Instruction representing the data in the line
+     * @throws BadlyFormedLineException if there is a problem with the format/contents of the line
+     */
     private Instruction csvToExecutionInstruction(String csvLine) throws BadlyFormedLineException {
         Instruction instruction;
 
